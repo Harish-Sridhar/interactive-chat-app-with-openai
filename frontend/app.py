@@ -7,7 +7,6 @@ import openai
 from transformers import pipeline
 import time
 
-
 sentiment_pipeline = pipeline("sentiment-analysis")
 
 openai.api_key = os.environ.get('OPENAI_API_KEY')
@@ -16,6 +15,8 @@ OPENAI_MODEL_ENGINE = "text-curie-001"
 whisper_model = whisper.load_model("base")
 TMP_AUDIO_FILES_PATH = "./frontend/static/recordings/"
 TMP_AUDIO_FILE_NAME = os.path.join(TMP_AUDIO_FILES_PATH, "recorded_audio.ogg")
+
+os.makedirs(TMP_AUDIO_FILES_PATH, exist_ok=True)
 
 app = Flask(__name__)
 
