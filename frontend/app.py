@@ -59,10 +59,7 @@ def audio():
     file = request.files['audioFile']
     with open(TMP_AUDIO_FILE_NAME, 'wb') as f:
         file.save(f)
-    audio_transcription = whisper_model.transcribe(TMP_AUDIO_FILE_NAME)
-    recorded_text = audio_transcription["text"]
-    print(recorded_text)
-    return recorded_text
+    return transcribeAudio(TMP_AUDIO_FILE_NAME)
 
 @app.route('/render', methods=['post'])
 def render():
@@ -102,12 +99,49 @@ def end_chat():
                            overallSentiment = overall_sentiment ) 
 
 
-def completePrompt(prompt):
-    completion = openai.Completion.create(engine=OPENAI_MODEL_ENGINE, prompt=prompt)
+def transcribeAudio(audio_file_path: str) -> str:
+    """
+    transcribe a given audio file using open ai.
+
+    Args:
+        audio_file_path (str): path to the audio file to transcribe
+
+    Returns:
+        str: transcription of the audio file
+    """
+    audio_transcription = whisper_model.transcribe(audio_file_path)
+    recorded_text = audio_transcription["text"]
+    print(recorded_text)
+    return recorded_text
+
+
+def completePrompt(prompt: str) -> str:
+    """
+    complete a given prompt using open ai chat gpt 3 model.
+
+    Args:
+        prompt (str): the user prompt
+
+    Returns:
+        str: chat gpt response text
+    """
+    completion = openai.Completion.create(
+        engine=OPENAI_MODEL_ENGINE,
+        prompt=prompt,
+        max_tokens=2000)
     print(completion)
     return completion["choices"][0]["text"]
 
-def detectSentiment(text):
+def detectSentiment(text: str)-> str:
+    """
+    detect the sentiment of given text using hugging face sentiment analysis model
+
+    Args:
+        text (str): the text to analyse sentiment.
+
+    Returns:
+        str: the sentiment label of the text
+    """
     sentiment = sentiment_pipeline([text])
     print(sentiment)
     return sentiment[0]['label']

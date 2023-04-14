@@ -38,7 +38,7 @@
 
 .chatWindow{
     border: 1px solid black;
-    width: 80vw;
+    /* width: 80vw; */
     height: 60vh;
     background-color: #f5f4e8;
     display: flex;

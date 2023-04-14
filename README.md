@@ -1,9 +1,14 @@
 # interactive-chat-app-with-openai
 interactive chat app with openai whisper and chat gpt 3 model.
 
+The interactive chat application record user voice, use open ai to transcribe the audio, then use chat gpt to respond to the request.
+We also use hugging face sentiment analysis to detect sentiments.
+
+**Note:** Please use english language to interact with the app.
+
 # Pre-requisties
 
-* python `3.9`.
+* python `3.9.9`. (note at the moment having issues with installing torch in other versions..)
 * Create an account in openai and create a API Key.
 
 # setting up local environment
@@ -13,7 +18,7 @@ interactive chat app with openai whisper and chat gpt 3 model.
     # check if python version is 3.9
     python --version 
     # create venv
-    python3 venv .venv
+    python3 -m venv .venv
 
 * install requirements
 
